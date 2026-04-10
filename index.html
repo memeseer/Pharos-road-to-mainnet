@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharos Leaderboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div class="hero-copy">
+          <div class="hero-chip">Pharos Leaderboard</div>
+          <h1>Pharos - the road to mainnet</h1>
+          <p class="hero-text">
+            PHAROS ARMY, our mission is to reach mainnet, and we should be talking about Pharos every day. This leaderboard is for fun, you do not get anything for being in first place, only respect from the community. Posts are visible starting from April 7, 2026 through the day you are reading this, with updates every 12 hours.
+          </p>
+
+          <div class="hero-actions">
+            <button id="jumpToLeaderboard" class="button button-primary" type="button">Open leaderboard</button>
+          </div>
+        </div>
+
+        <aside class="hero-panel">
+          <div class="hero-panel-head">
+            <span class="panel-label">Live snapshot</span>
+            <span id="statusPill" class="status-pill">Loading…</span>
+          </div>
+
+          <div class="hero-kpis">
+            <article class="kpi-card">
+              <span class="kpi-label">Creators</span>
+              <strong id="kpiUsers">-</strong>
+            </article>
+            <article class="kpi-card">
+              <span class="kpi-label">Posts</span>
+              <strong id="kpiPosts">-</strong>
+            </article>
+            <article class="kpi-card">
+              <span class="kpi-label">Views</span>
+              <strong id="kpiViews">-</strong>
+            </article>
+            <article class="kpi-card">
+              <span class="kpi-label">Engagement</span>
+              <strong id="kpiEngagement">-</strong>
+            </article>
+          </div>
+
+          <div class="hero-highlight">
+            <p class="hero-highlight-label">Top account right now</p>
+            <div id="heroLeader" class="hero-leader skeleton-block"></div>
+          </div>
+
+          <div id="fallbackLoader" class="fallback-loader is-hidden">
+            <p class="fallback-title">Local JSON upload</p>
+            <p class="fallback-copy">
+              If the page is opened directly as a file and the browser blocks <code>fetch</code>, choose the file manually.
+            </p>
+            <div class="fallback-grid">
+              <label class="searchbox">
+                <span>users_summary.json</span>
+                <input id="usersFileInput" type="file" accept=".json,application/json">
+              </label>
+            </div>
+            <button id="loadLocalFiles" class="button button-secondary" type="button">Load locally</button>
+          </div>
+        </aside>
+      </header>
+
+      <main class="content-grid">
+        <section class="content-main">
+          <section class="panel panel-podium">
+            <div class="section-head">
+              <div>
+                <span class="eyebrow">Top 3</span>
+                <h2>Top boosters</h2>
+              </div>
+              <p class="section-copy">A quick view of the most visible accounts.</p>
+            </div>
+
+            <div id="podiumGrid" class="podium-grid">
+              <div class="podium-card skeleton-card"></div>
+              <div class="podium-card skeleton-card"></div>
+              <div class="podium-card skeleton-card"></div>
+            </div>
+          </section>
+
+          <section id="leaderboardSection" class="panel">
+            <div class="section-head">
+              <div>
+                <span class="eyebrow">Leaderboard</span>
+                <h2>Full leaderboard</h2>
+              </div>
+              <p class="section-copy">Sort the list and find the accounts you need faster.</p>
+            </div>
+
+            <div class="toolbar">
+              <label class="searchbox">
+                <span>Search</span>
+                <input id="searchInput" type="search" placeholder="Name or @handle">
+              </label>
+
+              <label class="selectbox">
+                <span>Sort by</span>
+                <select id="sortSelect">
+                  <option value="post">Posts</option>
+                  <option value="views">Views</option>
+                  <option value="engagement">Engagement</option>
+                  <option value="like">Likes</option>
+                  <option value="reply">Replies</option>
+                  <option value="repost">Reposts</option>
+                </select>
+              </label>
+
+              <label class="selectbox">
+                <span>Minimum posts</span>
+                <select id="minPostsSelect">
+                  <option value="0">All</option>
+                  <option value="2">2+</option>
+                  <option value="3">3+</option>
+                  <option value="5">5+</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="table-wrap">
+              <table class="leaderboard-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Author</th>
+                    <th>Posts</th>
+                    <th>Views</th>
+                    <th>Likes</th>
+                    <th>Replies</th>
+                    <th>Reposts</th>
+                    <th>Engagement</th>
+                  </tr>
+                </thead>
+                <tbody id="leaderboardBody">
+                  <tr>
+                    <td colspan="8" class="table-loading">Loading data…</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <template id="leaderTemplate">
+      <a class="leader-mini" target="_blank" rel="noreferrer">
+        <img class="leader-mini-avatar" alt="">
+        <div class="leader-mini-meta">
+          <strong class="leader-mini-name"></strong>
+          <span class="leader-mini-handle"></span>
+        </div>
+        <div class="leader-mini-stats">
+          <span class="leader-mini-value"></span>
+          <span class="leader-mini-label"></span>
+        </div>
+      </a>
+    </template>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
