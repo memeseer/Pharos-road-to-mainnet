@@ -26,32 +26,33 @@
 
         <aside class="hero-panel">
           <div class="hero-panel-head">
-            <span class="panel-label">Live snapshot</span>
-            <span id="statusPill" class="status-pill">Loading…</span>
+            <span class="panel-label">Account visibility</span>
+            <span id="statusPill" class="status-pill">Info</span>
           </div>
 
-          <div class="hero-kpis">
-            <article class="kpi-card">
-              <span class="kpi-label">Creators</span>
-              <strong id="kpiUsers">-</strong>
-            </article>
-            <article class="kpi-card">
-              <span class="kpi-label">Posts</span>
-              <strong id="kpiPosts">-</strong>
-            </article>
-            <article class="kpi-card">
-              <span class="kpi-label">Views</span>
-              <strong id="kpiViews">-</strong>
-            </article>
-            <article class="kpi-card">
-              <span class="kpi-label">Engagement</span>
-              <strong id="kpiEngagement">-</strong>
-            </article>
-          </div>
-
-          <div class="hero-highlight">
-            <p class="hero-highlight-label">Top account right now</p>
-            <div id="heroLeader" class="hero-leader skeleton-block"></div>
+          <div class="hero-highlight hero-notice">
+            <p class="hero-highlight-label">Why can’t you see your account on the site?</p>
+            <div class="notice-copy">
+              <p>
+                Right now Twitter is cleaning up accounts, and many profiles are getting shadow bans.
+              </p>
+              <p>The site looks for tweets in two places:</p>
+              <ol class="notice-list">
+                <li>
+                  By the <code>@pharos_network</code> tag in global search. My API may not see your posts because of a shadow ban.
+                </li>
+                <li>
+                  Inside the
+                  <a href="https://x.com/i/communities/1944638720218734921" target="_blank" rel="noreferrer">
+                    Pharos Network Official community
+                  </a>.
+                  In most cases, tweets are still visible there even if your account is shadow banned.
+                </li>
+              </ol>
+              <p>
+                Please post in the Pharos Network Official community and publish your content there. That gives your posts a much higher chance of being visible, because the site currently works only with public data.
+              </p>
+            </div>
           </div>
 
           <div id="fallbackLoader" class="fallback-loader is-hidden">

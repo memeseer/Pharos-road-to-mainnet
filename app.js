@@ -9,11 +9,6 @@ const formatNumber = new Intl.NumberFormat("en-US");
 
 const els = {
   statusPill: document.getElementById("statusPill"),
-  kpiUsers: document.getElementById("kpiUsers"),
-  kpiPosts: document.getElementById("kpiPosts"),
-  kpiViews: document.getElementById("kpiViews"),
-  kpiEngagement: document.getElementById("kpiEngagement"),
-  heroLeader: document.getElementById("heroLeader"),
   podiumGrid: document.getElementById("podiumGrid"),
   leaderboardBody: document.getElementById("leaderboardBody"),
   searchInput: document.getElementById("searchInput"),
@@ -111,6 +106,9 @@ function getFilteredUsers() {
 }
 
 function setStatus(text, type = "default") {
+  if (!els.statusPill) {
+    return;
+  }
   els.statusPill.textContent = text;
   els.statusPill.classList.remove("is-ready", "is-error");
   if (type === "ready") {
@@ -119,38 +117,6 @@ function setStatus(text, type = "default") {
   if (type === "error") {
     els.statusPill.classList.add("is-error");
   }
-}
-
-function renderHeroLeader() {
-  const [leader] = [...state.users].sort((a, b) => b.post - a.post || b.views - a.views);
-  if (!leader) {
-    els.heroLeader.innerHTML = '<div class="empty-state">No leader data available.</div>';
-    return;
-  }
-
-  const node = els.leaderTemplate.content.firstElementChild.cloneNode(true);
-  node.href = `https://x.com/${leader.tagname}`;
-  node.querySelector(".leader-mini-avatar").src = leader.pfp || "";
-  node.querySelector(".leader-mini-avatar").alt = leader.name || leader.tagname;
-  node.querySelector(".leader-mini-name").textContent = leader.name || leader.tagname;
-  node.querySelector(".leader-mini-handle").textContent = `@${leader.tagname}`;
-  node.querySelector(".leader-mini-value").textContent = formatNumber.format(leader.post);
-  node.querySelector(".leader-mini-label").textContent = "posts";
-
-  els.heroLeader.innerHTML = "";
-  els.heroLeader.appendChild(node);
-}
-
-function renderKpis() {
-  const users = state.users.length;
-  const posts = state.users.reduce((sum, user) => sum + user.post, 0);
-  const views = state.users.reduce((sum, user) => sum + user.views, 0);
-  const engagement = state.users.reduce((sum, user) => sum + user.engagement, 0);
-
-  els.kpiUsers.textContent = formatNumber.format(users);
-  els.kpiPosts.textContent = compactNumber(posts);
-  els.kpiViews.textContent = compactNumber(views);
-  els.kpiEngagement.textContent = compactNumber(engagement);
 }
 
 function renderPodium() {
@@ -240,8 +206,6 @@ function renderLeaderboard() {
 }
 
 function render() {
-  renderKpis();
-  renderHeroLeader();
   renderPodium();
   renderLeaderboard();
 }
@@ -312,13 +276,6 @@ async function bootstrap() {
     console.error(error);
     setStatus("Need local server", "error");
     els.fallbackLoader.classList.remove("is-hidden");
-
-    els.heroLeader.innerHTML = `
-      <div class="empty-state">
-        The browser blocked local file access through <code>file://</code>.
-        Open the folder through a simple static server or choose the JSON manually below.
-      </div>
-    `;
     els.podiumGrid.innerHTML = '<div class="empty-state">Could not load users_summary.json.</div>';
     els.leaderboardBody.innerHTML = `
       <tr>

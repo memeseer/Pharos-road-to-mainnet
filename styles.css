@@ -253,10 +253,41 @@ code {
   background: rgba(255, 255, 255, 0.02);
 }
 
+.hero-notice {
+  margin-top: 18px;
+}
+
 .hero-highlight-label {
   margin: 0 0 12px;
   color: var(--muted);
   font-size: 13px;
+  line-height: 1.5;
+}
+
+.notice-copy {
+  display: grid;
+  gap: 12px;
+  color: #dde5f2;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.notice-copy p {
+  margin: 0;
+}
+
+.notice-copy a {
+  color: var(--cyan);
+  text-decoration: none;
+}
+
+.notice-list {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.notice-list li + li {
+  margin-top: 10px;
 }
 
 .fallback-loader {
